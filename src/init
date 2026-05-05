@@ -1,1 +1,27 @@
 #!/bin/bash
+
+# Color presets
+cyan=$()
+
+printf '\e[36m
+      ▗▄▖  ▄▄▄ ▗▞▀▘▐▌             
+     ▐▌ ▐▌█    ▐▌  ▐▌             
+     ▐▛▀▜▌█    ▝▚▄▖▐▛▀▚▖          
+     ▐▌ ▐▌         ▐▌ ▐▌          \e[35m
+ ———————[by A-Allaz]——————— \e[36m
+  ▗▄▄▖▄▄▄  ▄▄▄▄  ▗▞▀▀▘▄ ▗▄▖ 
+ ▐▌  █   █ █   █ ▐▌   ▄▐▌ ▐▌
+ ▐▌  ▀▄▄▄▀ █   █ ▐▛▀▘ █ ▝▀▜▌
+ ▝▚▄▄▖           ▐▌   █▐▙▄▞▘\e[35m
+Available at:        
+https://github.com/A-Allaz/Arch-Config \e[0m
+\n'
+
+
+# Set keyboard to french
+localectl set-keymap --no-conv fr-pc
+
+# Set font
+setfont ter-132b
+
+# Wifi setup
