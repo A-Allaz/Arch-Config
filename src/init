@@ -1,8 +1,9 @@
 #!/bin/bash
 
 source "$(dirname "$0")/utils"
+source "$(dirname "$0")/network"
 
-settings=(keybord_layout font browser extensions gui)
+settings=("keybord_layout" "font" "browser" "extensions" "gui")
 
 # Intro: ------------------------------------------------------------------------------------------
 printf '\e[36m
@@ -22,29 +23,31 @@ https://github.com/A-Allaz/Arch-Config \e[0m
 sleep 1;
 
 # Wifi setup: -------------------------------------------------------------------------------------
+select_network
 
 # Username: ---------------------------------------------------------------------------------------
 
 # Root Password: ----------------------------------------------------------------------------------
 
 # Keyboard layout: --------------------------------------------------------------------------------
-printf ""
-
 localectl list-x11-keymap-layouts | grep -E "us|fr|de" > /tmp/layouts
 IFS=$'\n' read -r -d '' -a layouts < /tmp/layouts
 
-selected_keybord_layout=select_option "${layouts[@]}"
+select_option "${layouts[@]}"
+selected_keybord_layout="${layouts[$?]}"
 
 # Font: -------------------------------------------------------------------------------------------
 fc-list : family | sort | uniq | grep -v 'Noto' > /tmp/fonts
 IFS=$'\n' read -r -d '' -a fonts < /tmp/fonts
 
-selected_font=select_option "${fonts[@]}"
+select_option "${fonts[@]}"
+selected_font="${fonts[$?]}"
 
 # Browser: ----------------------------------------------------------------------------------------
 browsers=("firefox" "brave" "chromium")
 
-selected_browser=select_option "${browsers[@]}"
+select_option "${browsers[@]}"
+selected_browser="${browsers[$?]}"
 
 # Extensions: -------------------------------------------------------------------------------------
 
@@ -61,7 +64,7 @@ done
 
 # Apply selection: --------------------------------------------------------------------------------
 echo Applying keyboard layout: $selected_keybord_layout
-localectl set-keymap --no-conv $selected_keybord_layout
+#localectl set-keymap --no-conv $selected_keybord_layout
 sleep 1;
 
 

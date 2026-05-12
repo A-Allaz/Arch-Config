@@ -1,0 +1,22 @@
+#!/bin/bash
+
+source ./utils
+
+function select_network() {
+    mapfile -t networks < <(
+        iwctl station wlan0 get-networks \
+        | sed 's/\x1B\[[0-9;]*m//g' \
+        | awk 'NR>4 && /[a-zA-Z0-9]/ {print $1}'
+    );
+
+    echo "${networks[@]}";
+
+    select_option "${networks[@]}"
+    selected_network="${networks[$?]}"
+
+    echo "Enter password for $selected_network:"
+    read network_password
+
+    # Add a while loop
+    iwctl station wlan0 connect "$selected_network" --passphrase "$network_password"
+}
